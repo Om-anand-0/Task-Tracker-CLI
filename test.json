@@ -1,8 +1,6 @@
 {
-  "2": {
-    "task": "cf"
-  },
-  "3": {
-    "task": "backend"
+  "1": {
+    "task": "is",
+    "done": false
   }
 }
