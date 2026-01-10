@@ -1,8 +1,6 @@
-<h1>Task Tracker CLI</h1>
+# Task Tracker CLI (v1)
 
 <p>https://roadmap.sh/projects/task-tracker</p>
-
-# Task Tracker CLI (v1)
 
 A simple command-line task tracker built in Python to manage tasks with persistent storage and clear state transitions.
 
