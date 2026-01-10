@@ -1,6 +1,19 @@
 {
   "1": {
     "task": "is",
+    "done": true,
+    "status": "done"
+  },
+  "2": {
+    "task": "it",
     "done": false
+  },
+  "3": {
+    "task": "working ?",
+    "done": true
+  },
+  "4": {
+    "task": "tets",
+    "done": "todo"
   }
 }
