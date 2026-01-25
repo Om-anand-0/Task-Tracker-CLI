@@ -1,16 +1,29 @@
-import argparse #library
+import argparse  # library
 
 # parser obj
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(description="Task Tracker CLI")
 
 # use object and add arguments
 
-# parser.add_argument("echo",help="echoes the string you use here")
-parser.add_argument("square",type=int,help="display a square of a given number")
+parser.add_argument(
+    "action",
+    choices=[
+        "add",
+        "show",
+        "delete",
+        "mark",
+        "done",
+        "undone",
+        "inprogress",
+        "list",
+        "clear",
+        "exit",
+    ],
+)
+parser.add_argument("value", nargs="?", help="Task id or task text")
+parser.add_argument("--file", default="tasks.json", help="File name to use (default: tasks.json)")
+
 
 # use parser to parse arguments and store them in args
 args = parser.parse_args()
-
-# print(args.echo)
-print(args.square**2)
 

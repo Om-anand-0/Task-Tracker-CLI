@@ -1,67 +1,55 @@
 import json
 from pathlib import Path
-import os
+from storage import add_task
+from core import (
+    clear_screen,
+    show_all_tasks,
+    show_done_tasks,
+    show_undone_tasks,
+    show_inprogress_tasks,
+    delete_task,
+    mark_task,
+    delete_all_tasks,
+)
+from args import args
 import sys
-from storage import load_tasks, add_task
-from core import clear_screen, show_all_tasks, show_done_tasks, show_undone_tasks, show_inprogress_tasks, delete_task, mark_task, delete_all_tasks
 
+# Handle file path - check if .json extension already exists
+file_path = Path(args.file if args.file.endswith(".json") else args.file + ".json")
 
-
-
-print("Enter File Name: ")
-file_Name = Path(input() + ".json")
-# file_Name+="json"
-
-if not file_Name.exists() or file_Name.stat().st_size == 0:
-    file_Name.touch()
-    with open(file_Name, "w") as f:
+if not file_path.exists() or file_path.stat().st_size == 0:
+    file_path.touch()
+    with open(file_path, "w") as f:
         json.dump({}, f)
-
-    print(f"File {file_Name} created succefully  ")
+        print(f"File {file_path} created successfully")
 else:
-    print(f" {file_Name} exists already so using {file_Name} ")
+    print(f"{file_path} exists already, using {file_path}")
 
-clear_screen()
-while True:
-    print("Welcome to Task Tracker CLI")
-    print("1. Add Task")
-    print("2. Show Tasks")
-    print("3. Show Done Tasks")
-    print("4. Show Undone Tasks")
-    print("5. Show Inprogres Tasks")
-    print("6. Mark Task")
-    print("7. Delete Task")
-    print("8. Delete All Task")
-    print("9. Exit")
-    choice = input("Choose Your choice: ")
+# args
+if args.action in ["add", "delete", "mark"] and not args.value:
+    print(f"{args.action} requires a value")
+    sys.exit(1)
 
-    if choice == "1":
-        task = input("Enter Your Task -> ")
-        new_id = add_task(file_Name, task)
-        if new_id:
-            clear_screen()
-            print(f"task added with id {new_id}")
-    elif choice == "2":
-        show_all_tasks(file_Name)
-    elif choice == "3":
-        show_done_tasks(file_Name)
-    elif choice == "4":
-        show_undone_tasks(file_Name)
-    elif choice == "5":
-        show_inprogress_tasks(file_Name)
-    elif choice == "6":
-        show_all_tasks(file_Name)
-        task_id = input("Enter ID: ")
-        mark_task(file_Name, task_id)
-    elif choice == "7":
-        show_all_tasks(file_Name)
-        task_id = input("Enter ID: ")
-        delete_task(file_Name, task_id)
-    elif choice == "8":
-        delete_all_tasks(file_Name)
-    elif choice == "9":
-        break
 
-    else:
-        print("Input Error Exiting")
-        break
+# Handle actions
+if args.action == "add":
+    task_id = add_task(file_path, args.value)
+    if task_id:
+        print(f"Task added with ID {task_id}")
+elif args.action == "list":
+    show_all_tasks(file_path)
+elif args.action == "delete":
+    delete_task(file_path, args.value)
+elif args.action == "mark":
+    mark_task(file_path, args.value)
+elif args.action == "done":
+    show_done_tasks(file_path)
+elif args.action == "undone":
+    show_undone_tasks(file_path)
+elif args.action == "inprogress":
+    show_inprogress_tasks(file_path)
+elif args.action == "clear":
+    delete_all_tasks(file_path)
+elif args.action == "exit":
+    print("Exiting Task Tracker CLI")
+    sys.exit(0)
