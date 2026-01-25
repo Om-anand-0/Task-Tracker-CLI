@@ -9,15 +9,13 @@ parser.add_argument(
     "action",
     choices=[
         "add",
-        "show",
-        "delete",
-        "mark",
+        "list",
         "done",
         "undone",
         "inprogress",
-        "list",
+        "mark",
+        "delete",
         "clear",
-        "exit",
     ],
 )
 parser.add_argument("value", nargs="?", help="Task id or task text")
@@ -26,4 +24,3 @@ parser.add_argument("--file", default="tasks.json", help="File name to use (defa
 
 # use parser to parse arguments and store them in args
 args = parser.parse_args()
-

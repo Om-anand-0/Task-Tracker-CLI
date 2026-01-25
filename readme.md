@@ -1,10 +1,10 @@
-# Task Tracker CLI
+# Task Tracker CLI (v2)
 
 <p>https://roadmap.sh/projects/task-tracker</p>
 
 A simple command-line task tracker built in Python to manage tasks with persistent storage and clear state transitions.
 
-This project was built incrementally to understand how real-world CLI tools evolve — focusing on correctness, clarity, and maintainability rather than shortcuts.
+Built with a clean Unix-style design: **one command → one action → program exits**.
 
 ---
 
@@ -109,10 +109,20 @@ Example structure (`tasks.json`):
 |--------|-------------|----------------|
 | `add` | Add a new task | ✅ Task text |
 | `list` | Show all tasks | ❌ |
-| `mark` | Toggle task status | ✅ Task ID |
-| `delete` | Delete a task | ✅ Task ID |
 | `done` | Show completed tasks | ❌ |
 | `undone` | Show todo tasks | ❌ |
 | `inprogress` | Show in-progress tasks | ❌ |
+| `mark` | Toggle task status | ✅ Task ID |
+| `delete` | Delete a task | ✅ Task ID |
 | `clear` | Delete all tasks | ❌ |
-| `exit` | Exit the CLI | ❌ |
+
+---
+
+## Design Philosophy (v2)
+
+**Unix-style simplicity:**
+- One command executes one action
+- Program exits after execution
+- No interactive prompts
+- No nested commands
+- Clean, predictable behavior

@@ -25,11 +25,10 @@ if not file_path.exists() or file_path.stat().st_size == 0:
 else:
     print(f"{file_path} exists already, using {file_path}")
 
-# args
+# Validate that actions requiring a value have one
 if args.action in ["add", "delete", "mark"] and not args.value:
     print(f"{args.action} requires a value")
     sys.exit(1)
-
 
 # Handle actions
 if args.action == "add":
@@ -50,6 +49,3 @@ elif args.action == "inprogress":
     show_inprogress_tasks(file_path)
 elif args.action == "clear":
     delete_all_tasks(file_path)
-elif args.action == "exit":
-    print("Exiting Task Tracker CLI")
-    sys.exit(0)
